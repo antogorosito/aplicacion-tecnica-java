@@ -8,6 +8,14 @@ public class Curso
 	private String descripcion;
 	private int cupomaximo;
 	private int anio;
+	private Persona docente;
+	
+	public Persona getDocente() {
+		return docente;
+	}
+	public void setDocente(Persona docente) {
+		this.docente = docente;
+	}
 	public int getIdCurso() {
 		return idCurso;
 	}

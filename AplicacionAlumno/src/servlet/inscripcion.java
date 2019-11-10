@@ -1,24 +1,29 @@
 package servlet;
 
 import java.io.IOException;
+import java.text.ParseException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import database.AppDataException;
+import negocio.*;
+import entidades.*;
 
 /**
- * Servlet implementation class index
+ * Servlet implementation class inscripcion
  */
-@WebServlet("/index")
-public class index extends HttpServlet {
+@WebServlet("/inscripcion")
+public class inscripcion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public index() {
+    public inscripcion() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,27 +41,28 @@ public class index extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String op = request.getParameter("op");	
-		if(op.equals("registrar"))
+		try 
 		{
-			request.getRequestDispatcher("/registrar.jsp").forward(request, response);
+			int legajo=Integer.parseInt(request.getParameter("legajo"));
+			int curso=Integer.parseInt(request.getParameter("sel1"));
+			CtrlAlumno ca= new CtrlAlumno();
+			Alumno al=ca.getOneAl(legajo);
+			CtrlInscripcionCarrera ccc=new CtrlInscripcionCarrera();
+			InscripcionCarrera rtaCarrera=ccc.validarCarreraCurso(al.getIdAlumno(),curso);
+			CtrlInscripcionCurso cic=new CtrlInscripcionCurso();
+			boolean rtaInscriptos=cic.verificarInscripcion(al.getIdAlumno(),curso);
+			boolean rtaCupo=cic.validarCupo(curso);
+			CtrlCurso cc=new CtrlCurso();
+			Curso c=cc.getOne(curso);
+			cic.add(al,c);
 		}
-		else if(op.equals("editar"))
-		{			
-			request.getRequestDispatcher("/editar.jsp").forward(request, response);
-		}
-		else if(op.equals("reportesEstado"))
+		catch (AppDataException | ParseException ape) 
 		{
-			request.getRequestDispatcher("/reportesEstado.jsp").forward(request, response);
-		}
-		else if(op.equals("reportesCurso"))
-		{
-			request.getRequestDispatcher("/reportesCurso.jsp").forward(request, response);
-		}
-		else if(op.equals("inscripcion"))
-		{
+			// TODO Auto-generated catch block
+			request.setAttribute("error",ape.getMessage());
 			request.getRequestDispatcher("/inscripcion.jsp").forward(request, response);
 		}
+		
 	}
 
 }

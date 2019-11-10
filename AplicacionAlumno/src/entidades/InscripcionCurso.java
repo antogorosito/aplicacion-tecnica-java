@@ -7,6 +7,21 @@ public class InscripcionCurso
 	private Alumno alumno;
 	private Curso curso;
 	private Date fechainscripcion;
+	private int nota;
+	private String estado;
+	
+	public int getNota() {
+		return nota;
+	}
+	public void setNota(int nota) {
+		this.nota = nota;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 	public Alumno getAlumno() {
 		return alumno;
 	}

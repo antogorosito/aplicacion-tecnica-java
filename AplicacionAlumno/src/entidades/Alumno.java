@@ -11,11 +11,11 @@ public class Alumno
 	public void setIdAlumno(int idAlumno) {
 		this.idAlumno = idAlumno;
 	}
-	public Persona getIdPersona() {
+	public Persona getPersona() {
 		return persona;
 	}
-	public void setIdPersona(Persona idPersona) {
-		this.persona = idPersona;
+	public void setPersona(Persona persona) {
+		this.persona = persona;
 	}
 	public int getLegajo() {
 		return legajo;
@@ -25,8 +25,9 @@ public class Alumno
 	}
 	
 	public Alumno() {}
-	public Alumno(Persona per, int legajo) 
+	public Alumno(int id,Persona per, int legajo) 
 	{
+		this.idAlumno=id;
 		this.persona=per;
 		this.legajo=legajo;
 	}

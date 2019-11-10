@@ -10,6 +10,14 @@ public class Persona
 	private String nombre;
 	private String apellido;
 	private Date fechanac;
+	private String direccion;
+	
+	public String getDireccion() {
+		return direccion;
+	}
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
 	public int getIdPersona() {
 		return idPersona;
 	}
@@ -48,12 +56,14 @@ public class Persona
 	}
 	
 	public Persona() {}
-	public Persona(String tipo, long doc, String nombre, String apellido, Date fecha) 
+	public Persona(int id,String tipo, long doc, String nombre, String apellido, Date fecha,String direccion) 
 	{
+		this.idPersona=id;
 		this.tipodoc=tipo;
 		this.documento=doc;
 		this.nombre=nombre;
 		this.apellido=apellido;
 		this.fechanac=fecha;
+		this.direccion=direccion;
 	}
 }

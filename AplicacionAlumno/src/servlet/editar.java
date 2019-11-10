@@ -13,18 +13,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import entidades.*;
 import negocio.*;
-import database.*;
+
 /**
- * Servlet implementation class registrar
+ * Servlet implementation class editar
  */
-@WebServlet("/registrar")
-public class registrar extends HttpServlet {
+@WebServlet("/editar")
+public class editar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public registrar() {
+    public editar() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,35 +42,32 @@ public class registrar extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		try {
+		try 
+		{
 			String nombre=request.getParameter("nombre");
 			String apellido=request.getParameter("apellido");
 			String tipodoc=request.getParameter("tipodoc");
 			String direccion=request.getParameter("direccion");
 			int legajo=Integer.parseInt(request.getParameter("legajo"));
+			int ida=Integer.parseInt(request.getParameter("ida"));
+			int idp=Integer.parseInt(request.getParameter("idp"));
 			long nrodoc=Long.parseLong(request.getParameter("nrodoc"));
 			String strDate=request.getParameter("fechanac");
 			SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
 			Date fechanac=sdf.parse(strDate);
 			CtrlPersona cp= new CtrlPersona();
 			CtrlAlumno ca=new CtrlAlumno();
-			cp.existe(nrodoc);		
-			ca.existe(legajo);
-			int idPer=cp.seleccionarUltId()+1; 
-			int idAl=ca.seleccionarUltId()+1;
-			Persona per=new Persona(idPer,tipodoc,nrodoc,nombre,apellido,fechanac,direccion);
-			cp.add(per); 
-			Alumno al=new Alumno(idAl,per,legajo);
-			ca.add(al);
-
+			Persona p=new Persona(idp,tipodoc,nrodoc,nombre,apellido,fechanac,direccion);
+			cp.update(p);
+			Alumno a=new Alumno(ida,p,legajo);
+			ca.update(a);
+			
+			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (AppDataException ape) {
-			// TODO Auto-generated catch block
-			//request.setAttribute("error",ape.getMessage());
-			request.getRequestDispatcher("/registrar.jsp").forward(request, response);
 		}
+		
 	}
 
 }

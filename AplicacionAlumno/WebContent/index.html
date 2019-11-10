@@ -1,10 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Gestion de alumnos</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="style/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="style/jumbotron.css" rel="stylesheet">
+    <link href="style/estilos.css" rel="stylesheet">
 </head>
-<body>
+<body>   
+    <div class="jumbotron fondo">
+   		<h1 class="display-3 centrarTexto">Bienvenido al sistema </h1>
+	</div>
+	<div>
+		<div class="centrar">
+			<form class="form-bus" action="index" method="post">	
+				<div class="card-columns">
+					<div class="card">
+					  <div class="card-body">
+					    <h4 class="card-title">Registración de alumnos</h4>
+					    <button type="submit" class="btn btn-success" name="op" value="registrar">Ir</button>
+					  </div>
+					</div>
+					<div class="card">
+					  <div class="card-body">
+					    <h4 class="card-title">Editar datos de los alumnos</h4>
+					     <button type="submit" class="btn btn-success" name="op" value="editar">Ir</button>
+					  </div>
+					</div>
+				</div>
+	    		<div class="card-columns">
+					<div class="card">
+					  <div class="card-body">
+					    <h4 class="card-title">Reporte estado academico</h4>
+					     <button type="submit" class="btn btn-success" name="op" value="reportesEstado">Ir</button>
+					  </div>
+					</div>
+					<div class="card">
+					  <div class="card-body">
+					    <h4 class="card-title">Reporte curso</h4>
+					     <button type="submit" class="btn btn-success" name="op" value="reportesCurso">Ir</button>
+					  </div>
+					</div>
+					<div class="card">
+					  <div class="card-body">
+					    <h4 class="card-title">Inscripcion a materias</h4>
+					     <button type="submit" class="btn btn-success" name="op" value="inscripcion">Ir</button>
+					  </div>
+					</div>
+				</div> 
+			</form> 
+		</div>
+    </div>
+
+	<footer class="fondo ">	
+		<div class="footer-container">
+			<div class="footer-main">
+    			<p>Prueba Tecnica java- Gorosito,Antonella</p>
+    		</div>
+    	</div>
+    </footer>
+
 
 </body>
 </html>
+
+
+<!-- 
+
+Desarrollar una aplicación, puede ser en cualquier lenguaje y tanto una aplicación web
+ o de escritorio o simplemente una aplicación que requiera ingreso de datos por consola, que:
+a. Registre y edite alumnos en el modelo de base de datos anterior.
+b. Provea los siguientes reportes:
+i. Estado académico de un alumno dado (inscripciones actuales a carreras y cursos,  
+estado de cursos anteriores, promedio general por carrera tomando los cursos ya aprobados)
+ii. Para una asignatura(curso) dado, los alumnos inscriptos y el docente correspondiente.
+c. Permita a un alumno inscribirse a una materia.(para esto se deberán realizar los cambios 
+que crean convenientes en el modelo de datos provisto en el paso 1)
+
+-->
