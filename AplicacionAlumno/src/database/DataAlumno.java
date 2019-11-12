@@ -5,11 +5,12 @@ import java.util.ArrayList;
 
 import entidades.Alumno;
 import entidades.Persona;
+import entidades.TipoDoc;
 
 
 public class DataAlumno 
 {
-	public void update(Alumno al)
+	public void update(Alumno al) throws AppDataException
 	{
 		PreparedStatement stmt=null;
 		try 
@@ -21,7 +22,8 @@ public class DataAlumno
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+			AppDataException ape = new AppDataException(e, "Error al actualizar la base de datos");
+			throw ape;
 		}
 		finally
 		{
@@ -73,6 +75,65 @@ public class DataAlumno
 			} 
 		}
 	}
+	public Alumno getOne(int legajo) 
+	{
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		Alumno al=null;
+		try 
+		{
+			stmt=Conexion.getInstancia().getConn().prepareStatement("select alumno.identificador as id,legajo,persona.identificador as idp,nombre,apellido,direccion,documento,tipodoc,fechanac from alumno inner join persona on persona.identificador=alumno.idpersona where legajo=?");
+			stmt.setInt(1,legajo);
+			rs=stmt.executeQuery();
+			if(rs!=null)
+			{
+				while(rs.next()) 
+				{
+					Persona p=new Persona();
+					p.setIdPersona(rs.getInt("idp"));
+					p.setApellido(rs.getString("apellido"));
+					p.setNombre(rs.getString("nombre"));
+					p.setDireccion(rs.getString("direccion"));
+					p.setDocumento(rs.getLong("documento"));
+					p.setFechanac(rs.getDate("fechanac"));
+					TipoDoc tipo;
+					if(rs.getString("tipodoc")=="DNI")
+					{
+						 tipo=TipoDoc.DNI;
+					}
+					else
+					{
+						 tipo=TipoDoc.LC;
+					}
+					p.setTipodoc(tipo);
+					al=new Alumno();
+					al.setPersona(p);
+					al.setLegajo(rs.getInt("legajo"));
+					al.setIdAlumno(rs.getInt("id"));
+					
+				}
+			}	
+
+		}	
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			}
+		finally 
+		{
+			try 
+			{	
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				Conexion.getInstancia().releaseConn();
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			} 
+		}
+		return al;
+	}
 	public Alumno getOneAl(int legajo) throws AppDataException
 	{
 		PreparedStatement stmt=null;
@@ -94,7 +155,16 @@ public class DataAlumno
 					p.setDireccion(rs.getString("direccion"));
 					p.setDocumento(rs.getLong("documento"));
 					p.setFechanac(rs.getDate("fechanac"));
-					p.setTipodoc(rs.getString("tipodoc"));
+					TipoDoc tipo;
+					if(rs.getString("tipodoc")=="DNI")
+					{
+						 tipo=TipoDoc.DNI;
+					}
+					else
+					{
+						 tipo=TipoDoc.LC;
+					}
+					p.setTipodoc(tipo);
 					al=new Alumno();
 					al.setPersona(p);
 					al.setLegajo(rs.getInt("legajo"));
@@ -217,7 +287,16 @@ public class DataAlumno
 					p.setDireccion(rs.getString("direccion"));
 					p.setDocumento(rs.getLong("documento"));
 					p.setFechanac(rs.getDate("fechanac"));
-					p.setTipodoc(rs.getString("tipodoc"));
+					TipoDoc tipo;
+					if(rs.getString("tipodoc")=="DNI")
+					{
+						 tipo=TipoDoc.DNI;
+					}
+					else
+					{
+						 tipo=TipoDoc.DNI;
+					}
+					p.setTipodoc(tipo);
 					Alumno al=new Alumno();
 					al.setPersona(p);
 					al.setLegajo(rs.getInt("legajo"));

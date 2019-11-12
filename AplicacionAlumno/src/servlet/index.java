@@ -1,11 +1,15 @@
 package servlet;
 
-import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.*;
+
+
 
 
 /**
@@ -48,6 +52,7 @@ public class index extends HttpServlet {
 		else if(op.equals("reportesEstado"))
 		{
 			request.getRequestDispatcher("/reportesEstado.jsp").forward(request, response);
+		
 		}
 		else if(op.equals("reportesCurso"))
 		{
@@ -58,5 +63,4 @@ public class index extends HttpServlet {
 			request.getRequestDispatcher("/inscripcion.jsp").forward(request, response);
 		}
 	}
-
 }

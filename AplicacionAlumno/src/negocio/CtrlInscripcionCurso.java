@@ -21,10 +21,6 @@ public class CtrlInscripcionCurso
 	{
 		return dic.getEstadoCursoAnterior(al);
 	}
-	public HashMap<String,Integer>  getPromedio(Alumno al)
-	{
-		return dic.getPromedio(al);
-	}
 	public ArrayList<InscripcionCurso> getInscriptos(int id)
 	{
 		return dic.getInscriptos(id);
@@ -37,7 +33,7 @@ public class CtrlInscripcionCurso
 	{
 		return dic.validarCupo(curso);
 	}
-	public void add(Alumno al,Curso curso) throws ParseException
+	public void add(Alumno al,Curso curso) throws AppDataException, ParseException
 	{
 		dic.add(al,curso);
 	}

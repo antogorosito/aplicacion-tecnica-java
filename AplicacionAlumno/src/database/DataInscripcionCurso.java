@@ -16,7 +16,7 @@ public class DataInscripcionCurso
 		java.sql.Date sDate = new java.sql.Date(uDate.getTime());
 		return sDate;
 	}
-	public void add(Alumno al,Curso cu) throws ParseException
+	public void add(Alumno al,Curso cu) throws AppDataException, ParseException 
 	{
 		PreparedStatement stmt=null;
 		try 
@@ -33,7 +33,8 @@ public class DataInscripcionCurso
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+			AppDataException ape = new AppDataException(e, "Error al actualizar la base de datos");
+			throw ape;
 		}
 		finally
 		{
@@ -201,49 +202,8 @@ public class DataInscripcionCurso
 		}
 		return cc;
 	}
-	public HashMap<String,Integer>  getPromedio(Alumno al)
-	{
-		PreparedStatement stmt=null;
-		ResultSet rs=null;
-		
-		HashMap<String,Integer> listado=new HashMap<String,Integer>();
-		try 
-		{
-			stmt=Conexion.getInstancia().getConn().prepareStatement("select avg(nota) as promedio, carrera.nombre as carrera\r\n" + 
-					"from inscripciones_curso\r\n" + 
-					"inner join curso on curso.identificador=inscripciones_curso.idcurso\r\n" + 
-					"inner join carrera on carrera.identificador=curso.idcarrera\r\n"+
-					"where estado='aprobado' and idalumno=?\r\n" + 
-					"group by idalumno,carrera.nombre");
-			stmt.setInt(1, al.getIdAlumno());
-			rs=stmt.executeQuery();
-			if(rs!=null)
-			{
-				while(rs.next())
-				{
-					listado.put(rs.getString("carrera"), rs.getInt("promedio"));
-				}
-			}
-		}
-		catch(SQLException e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			try
-			{
-				if(stmt!=null)stmt.close();
-				if(rs!=null)rs.close();
-				Conexion.getInstancia().releaseConn();
-			}
-			catch(SQLException e )
-			{
-				e.printStackTrace();
-			}
-		}
-		return listado;
-	}
+	
+	
 	public ArrayList<InscripcionCurso> getEstadoCursoAnterior(Alumno al)
 	{
 		PreparedStatement stmt=null;

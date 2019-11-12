@@ -1,6 +1,8 @@
 package entidades;
 
-public class Alumno 
+import java.util.Date;
+
+public class Alumno extends Persona
 {
 	private int idAlumno;
 	private Persona persona;
@@ -24,9 +26,13 @@ public class Alumno
 		this.legajo = legajo;
 	}
 	
-	public Alumno() {}
+	public Alumno() 
+	{
+		super();
+	}
 	public Alumno(int id,Persona per, int legajo) 
 	{
+		super(per.getIdPersona(),per.getTipodoc(),per.getDocumento(),per.getNombre(),per.getApellido(),per.getFechanac(),per.getDireccion());
 		this.idAlumno=id;
 		this.persona=per;
 		this.legajo=legajo;

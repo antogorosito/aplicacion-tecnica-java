@@ -1,19 +1,13 @@
 @charset "ISO-8859-1";
 
-footer
-{
-  	width: 100%;
-	bottom: 0;
-	left:0;
-}
-.footer-container 
-{
-	width: 100%;
-}
 .oculto
 {
  	display:none;
 	visibility:hidden;
+}
+.top
+{
+	margin-top:2%;
 }
 .red
 {
@@ -25,15 +19,6 @@ footer
 	visibility:visible;
 }
 
-.footer-main
-{
-	width:100%;
-	max-width:100%;
-	display:flex;
-	flex-wrap: wrap;
-	justify-content:space-between;
-	padding:10px 0;
-}
 .fondo
 {
 	background-color:#CBD9A2;	
@@ -44,8 +29,7 @@ footer
 }
 .centrar
 {
-	margin-left: 25%;
-    margin-top: 5%;
+	margin-left: 30%;
 }
 .centrarTexto
 {

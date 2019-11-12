@@ -22,7 +22,7 @@ public class CtrlPersona
 	{
 		 dp.existe(nrodoc);
 	}
-	public void update(Persona p)
+	public void update(Persona p) throws AppDataException
 	{
 		dp.update(p);
 	}

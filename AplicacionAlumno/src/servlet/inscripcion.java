@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 
 import javax.servlet.ServletException;
@@ -55,12 +56,21 @@ public class inscripcion extends HttpServlet {
 			CtrlCurso cc=new CtrlCurso();
 			Curso c=cc.getOne(curso);
 			cic.add(al,c);
+			PrintWriter out=response.getWriter();
+			out.println("<script>");
+			out.println("alert('Se ha registrado con exito una nueva inscripcion al curso');");
+			out.println(" location.href='inscripcion.jsp';");
+			out.println("</script>");
 		}
 		catch (AppDataException | ParseException ape) 
 		{
 			// TODO Auto-generated catch block
-			request.setAttribute("error",ape.getMessage());
-			request.getRequestDispatcher("/inscripcion.jsp").forward(request, response);
+			PrintWriter out=response.getWriter();
+			out.println("<script>");
+		     out.println("alert('" + ape.getMessage() + "');");
+			out.println(" location.href='inscripcion.jsp';");
+			out.println("</script>");	
+			
 		}
 		
 	}

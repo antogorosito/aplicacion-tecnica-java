@@ -10,23 +10,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Gestion de alumnos</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/">
-
-    <!-- Bootstrap core CSS -->
-    <link href="style/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
+        <link href="style/bootstrap.min.css" rel="stylesheet">
     <link href="style/jumbotron.css" rel="stylesheet">
-    <link href="style/estilos.css" rel="stylesheet">
-	<script src="javascript/editar.js" type="text/javascript"></script>
+        <link href="style/estilo.css" rel="stylesheet">
+	
 </head>
 <body>   
     <div class="jumbotron fondo">
     	<h1 class="display-3 centrarTexto">Reporte de estado de alumno</h1>
 	</div>
-	<div class="centrar">
-			<form class="form-bus" action="reporteEstadoAcademico.jsp" method="post">	
+	<div class="centrar ">
+			<form class="form-bus" action="reporteEstado" method="post">	
 				<div class="form-group">
-					<label for="sel1">Seleccionar un alumno:</label>
+					<label for="sel1"><b>Seleccionar un alumno:</b></label>
 				  	<select class="form-control" id="sel1" name="sel1">
 				  	 	<option value="0">Elige una opción</option>
 					    <% CtrlAlumno ca=new CtrlAlumno();
@@ -41,13 +37,6 @@
 			</form> 
     </div>
 
-	<footer class="fondo ">	
-		<div class="footer-container">
-			<div class="footer-main">
-    			<p>Prueba Tecnica java- Gorosito,Antonella</p>
-    		</div>
-    	</div>
-    </footer>
 </body>
 </html>
     

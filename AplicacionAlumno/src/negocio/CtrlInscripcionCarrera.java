@@ -20,4 +20,8 @@ public class CtrlInscripcionCarrera
 	{
 		return cic.validarCarreraCurso(idal,idcurso);
 	}
+	public int getProm(Alumno al,Carrera ca)
+	{
+		return cic.getProm(al,ca);
+	}
 }

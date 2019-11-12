@@ -20,6 +20,10 @@ public class CtrlAlumno
 	{
 		 return da.getOneAl(legajo);
 	}
+	public Alumno getOne(int legajo) 
+	{
+		 return da.getOne(legajo);
+	}
 	public int seleccionarUltId() throws AppDataException
 	{
 		return da.seleccionarUltId();
@@ -33,7 +37,7 @@ public class CtrlAlumno
 
 		return da.getAll();
 	}
-	public void update(Alumno al)
+	public void update(Alumno al)  throws AppDataException
 	{
 		da.update(al);
 	}

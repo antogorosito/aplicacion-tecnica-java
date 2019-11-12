@@ -1,6 +1,7 @@
 package negocio;
 import java.util.ArrayList;
 
+import database.AppDataException;
 import database.DataCurso;
 import entidades.Curso;
 
@@ -17,7 +18,7 @@ public class CtrlCurso
 		return dc.getAll();
 	}
 
-	public Curso getOne(int id)
+	public Curso getOne(int id) throws AppDataException
 	{
 		return dc.getOne(id);
 	}

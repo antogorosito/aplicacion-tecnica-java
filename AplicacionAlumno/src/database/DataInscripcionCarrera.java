@@ -4,11 +4,56 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import entidades.*;
 
 public class DataInscripcionCarrera
 {
+	public int  getProm(Alumno al, Carrera ca)
+	{
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		int prom=0;
+		
+		try 
+		{
+			stmt=Conexion.getInstancia().getConn().prepareStatement("select avg(nota) as promedio, carrera.nombre as carrera\r\n" + 
+					"from inscripciones_curso\r\n" + 
+					"inner join curso on curso.identificador=inscripciones_curso.idcurso\r\n" + 
+					"inner join carrera on carrera.identificador=curso.idcarrera\r\n"+
+					"where estado='aprobado' and idalumno=? and idcarrera=?\r\n" + 
+					"group by idalumno,carrera.nombre");
+			stmt.setInt(1, al.getIdAlumno());
+			stmt.setInt(2, ca.getIdCarrera());
+			rs=stmt.executeQuery();
+			if(rs!=null)
+			{
+				while(rs.next())
+				{
+					prom=rs.getInt("promedio");
+				}
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if(stmt!=null)stmt.close();
+				if(rs!=null)rs.close();
+				Conexion.getInstancia().releaseConn();
+			}
+			catch(SQLException e )
+			{
+				e.printStackTrace();
+			}
+		}
+		return prom;
+	}
 	public InscripcionCarrera validarCarreraCurso(int idal,int idcurso) throws AppDataException
 	{
 

@@ -2,10 +2,10 @@ package entidades;
 
 import java.util.Date;
 
-public class Persona 
+public abstract class Persona 
 {
 	private int idPersona;
-	private String tipodoc;
+	private TipoDoc tipodoc;
 	private long documento;
 	private String nombre;
 	private String apellido;
@@ -24,10 +24,10 @@ public class Persona
 	public void setIdPersona(int idPersona) {
 		this.idPersona = idPersona;
 	}
-	public String getTipodoc() {
+	public TipoDoc getTipodoc() {
 		return tipodoc;
 	}
-	public void setTipodoc(String tipodoc) {
+	public void setTipodoc(TipoDoc tipodoc) {
 		this.tipodoc = tipodoc;
 	}
 	public long getDocumento() {
@@ -56,7 +56,7 @@ public class Persona
 	}
 	
 	public Persona() {}
-	public Persona(int id,String tipo, long doc, String nombre, String apellido, Date fecha,String direccion) 
+	public Persona(int id,TipoDoc tipo, long doc, String nombre, String apellido, Date fecha,String direccion) 
 	{
 		this.idPersona=id;
 		this.tipodoc=tipo;

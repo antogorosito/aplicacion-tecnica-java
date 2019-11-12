@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,7 +46,16 @@ public class registrar extends HttpServlet {
 		try {
 			String nombre=request.getParameter("nombre");
 			String apellido=request.getParameter("apellido");
-			String tipodoc=request.getParameter("tipodoc");
+			int tipodoc=Integer.parseInt(request.getParameter("tipodoc"));
+			TipoDoc tipodocs=null;
+			if(tipodoc==1)
+			{
+				 tipodocs=TipoDoc.DNI;
+			}
+			else
+			{
+				 tipodocs=TipoDoc.LC;
+			}
 			String direccion=request.getParameter("direccion");
 			int legajo=Integer.parseInt(request.getParameter("legajo"));
 			long nrodoc=Long.parseLong(request.getParameter("nrodoc"));
@@ -58,18 +68,25 @@ public class registrar extends HttpServlet {
 			ca.existe(legajo);
 			int idPer=cp.seleccionarUltId()+1; 
 			int idAl=ca.seleccionarUltId()+1;
-			Persona per=new Persona(idPer,tipodoc,nrodoc,nombre,apellido,fechanac,direccion);
+			Persona per=new Persona(idPer,tipodocs,nrodoc,nombre,apellido,fechanac,direccion);
 			cp.add(per); 
 			Alumno al=new Alumno(idAl,per,legajo);
 			ca.add(al);
-
+			PrintWriter out=response.getWriter();
+			out.println("<script>");
+			out.println("alert('Se ha registrado con exito un nuevo alumno');");
+			out.println(" location.href='registrar.jsp';");
+			out.println("</script>");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (AppDataException ape) {
 			// TODO Auto-generated catch block
-			//request.setAttribute("error",ape.getMessage());
-			request.getRequestDispatcher("/registrar.jsp").forward(request, response);
+			PrintWriter out=response.getWriter();
+			out.println("<script>");
+		     out.println("alert('" + ape.getMessage() + "');");
+			out.println(" location.href='registrar.jsp';");
+			out.println("</script>");	
 		}
 	}
 

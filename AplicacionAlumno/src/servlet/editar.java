@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import database.AppDataException;
 import entidades.*;
 import negocio.*;
 
@@ -46,7 +48,16 @@ public class editar extends HttpServlet {
 		{
 			String nombre=request.getParameter("nombre");
 			String apellido=request.getParameter("apellido");
-			String tipodoc=request.getParameter("tipodoc");
+			int tipodoc=Integer.parseInt(request.getParameter("tipodoc"));
+			TipoDoc tipodocs=null;
+			if(tipodoc==1)
+			{
+				 tipodocs=TipoDoc.DNI;
+			}
+			else
+			{
+				 tipodocs=TipoDoc.LC;
+			}
 			String direccion=request.getParameter("direccion");
 			int legajo=Integer.parseInt(request.getParameter("legajo"));
 			int ida=Integer.parseInt(request.getParameter("ida"));
@@ -57,15 +68,27 @@ public class editar extends HttpServlet {
 			Date fechanac=sdf.parse(strDate);
 			CtrlPersona cp= new CtrlPersona();
 			CtrlAlumno ca=new CtrlAlumno();
-			Persona p=new Persona(idp,tipodoc,nrodoc,nombre,apellido,fechanac,direccion);
+			Persona p=new Persona(idp,tipodocs,nrodoc,nombre,apellido,fechanac,direccion);
+	
 			cp.update(p);
 			Alumno a=new Alumno(ida,p,legajo);
 			ca.update(a);
-			
+			PrintWriter out=response.getWriter();
+			out.println("<script>");
+			out.println("alert('Se ha editado el alumno con exito');");
+			out.println(" location.href='editar.jsp';");
+			out.println("</script>");
 			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (AppDataException ape) {
+			// TODO Auto-generated catch block
+			PrintWriter out=response.getWriter();
+			out.println("<script>");
+		     out.println("alert('" + ape.getMessage() + "');");
+			out.println(" location.href='editar.jsp';");
+			out.println("</script>");	
 		}
 		
 	}

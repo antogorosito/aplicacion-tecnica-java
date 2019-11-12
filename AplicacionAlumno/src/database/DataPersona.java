@@ -96,7 +96,7 @@ public class DataPersona
 		{
 			stmt = Conexion.getInstancia().getConn().prepareStatement("insert into persona values(?,?,?,?,?,?,?)");
 		    stmt.setInt(1,per.getIdPersona());
-		    stmt.setString(2,per.getTipodoc());
+		    stmt.setString(2,per.getTipodoc().toString());
 			stmt.setLong(3,per.getDocumento());
 		    stmt.setString(4, per.getNombre());
 		    stmt.setString(5,per.getApellido());
@@ -136,7 +136,7 @@ public class DataPersona
 				while(rs.next())
 				{
 					System.out.println("entre per con ese dni");
-					AppDataException ape = new AppDataException("Ya existe una persona cargada");
+					AppDataException ape = new AppDataException("Ya existe una persona cargada con ese dni");
 					throw ape;
 				}
 			}
@@ -160,20 +160,30 @@ public class DataPersona
 			} 
 		}
 	}
-	public void update(Persona per)
+	public void update(Persona per) throws AppDataException
 	{
 		PreparedStatement stmt=null;
 		try 
 		{
-			stmt=Conexion.getInstancia().getConn().prepareStatement("update persona set nombre=?,apellido=?,tipodoc=?,documento=?,direccion=?,fechanac=? where identificador=?");
-			stmt.setInt(7,per.getIdPersona());
-		    stmt.setString(3,per.getTipodoc());
-			stmt.setLong(4,per.getDocumento());
-		    stmt.setString(1, per.getNombre());
-		    stmt.setString(2,per.getApellido());
+			System.out.println(per.getNombre());
+			System.out.println(per.getApellido());
+			System.out.println(per.getTipodoc().toString());
+			System.out.println(per.getDocumento());
+			System.out.println(per.getDireccion());
 			java.sql.Date fecha=convertUtilToSql(per.getFechanac());
-			stmt.setDate(6,fecha);
+			System.out.println(fecha);
+			System.out.println(per.getIdPersona());
+			stmt=Conexion.getInstancia().getConn().prepareStatement("update persona set nombre=?,apellido=?,tipodoc=?,documento=?,direccion=?,fechanac=? where identificador=?");
+
+			stmt.setString(1, per.getNombre());
+		    stmt.setString(2,per.getApellido());
+		    stmt.setString(3,per.getTipodoc().toString());
+			stmt.setLong(4,per.getDocumento());
 			stmt.setString(5,per.getDireccion());
+			//java.sql.Date fecha=convertUtilToSql(per.getFechanac());
+			stmt.setDate(6,fecha);
+			stmt.setInt(7,per.getIdPersona());
+
 			stmt.executeUpdate();
 		}
 		catch(SQLException e)
