@@ -20,7 +20,7 @@
     	<h1 class="display-3 centrarTexto">Edicion de datos de alumnos</h1>
 	</div>
 	<div class="centrar ">
-			<form class="form-bus" action="editarAlumno.jsp" method="post">	
+			<form class="form-bus" action="editarBoton" method="post">	
 				<div class="form-group">
 					<label for="sel1"><b>Seleccionar un alumno:</b></label>
 				  	<select class="form-control" id="sel1" name="sel1">
@@ -33,7 +33,8 @@
 					   <%} %>
 					</select>
 				</div>
-				<button type="submit" class="col-20 btn btn-success" >Modificar</button>
+				<button type="submit" class="col-20 btn btn-success" name="op" value="editar">Modificar</button>
+				<button type="submit" class="col-20 btn btn-success" name="op" value="volver" formnovalidate>Volver</button>
 			</form> 
     </div>
 

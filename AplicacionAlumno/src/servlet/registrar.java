@@ -43,50 +43,63 @@ public class registrar extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		try {
-			String nombre=request.getParameter("nombre");
-			String apellido=request.getParameter("apellido");
-			int tipodoc=Integer.parseInt(request.getParameter("tipodoc"));
-			TipoDoc tipodocs=null;
-			if(tipodoc==1)
+		String op = request.getParameter("op");	
+		if(op.equals("registrar"))
+		{
+			try 
 			{
-				 tipodocs=TipoDoc.DNI;
-			}
-			else
+				String nombre=request.getParameter("nombre");
+				String apellido=request.getParameter("apellido");
+				int tipodoc=Integer.parseInt(request.getParameter("tipodoc"));
+				TipoDoc tipodocs=null;
+				if(tipodoc==1)
+				{
+					 tipodocs=TipoDoc.DNI;
+				}
+				else
+				{
+					 tipodocs=TipoDoc.LC;
+				}
+				String direccion=request.getParameter("direccion");
+				int legajo=Integer.parseInt(request.getParameter("legajo"));
+				long nrodoc=Long.parseLong(request.getParameter("nrodoc"));
+				String strDate=request.getParameter("fechanac");
+				SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+				Date fechanac=sdf.parse(strDate);
+				CtrlPersona cp= new CtrlPersona();
+				CtrlAlumno ca=new CtrlAlumno();
+				cp.existe(nrodoc);		
+				ca.existe(legajo);
+				int idPer=cp.seleccionarUltId()+1; 
+				int idAl=ca.seleccionarUltId()+1;
+				Persona per=new Persona(idPer,tipodocs,nrodoc,nombre,apellido,fechanac,direccion);
+				cp.add(per); 
+				Alumno al=new Alumno(idAl,per,legajo);
+				ca.add(al);
+				PrintWriter out=response.getWriter();
+				out.println("<script>");
+				out.println("alert('Se ha registrado con exito un nuevo alumno');");
+				out.println(" location.href='index.html';");
+				out.println("</script>");
+			} 
+			catch (ParseException e) 
 			{
-				 tipodocs=TipoDoc.LC;
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			catch (AppDataException ape) 
+			{
+				// TODO Auto-generated catch block
+				PrintWriter out=response.getWriter();
+				out.println("<script>");
+			     out.println("alert('" + ape.getMessage() + "');");
+				out.println(" location.href='registrar.jsp';");
+				out.println("</script>");	
 			}
-			String direccion=request.getParameter("direccion");
-			int legajo=Integer.parseInt(request.getParameter("legajo"));
-			long nrodoc=Long.parseLong(request.getParameter("nrodoc"));
-			String strDate=request.getParameter("fechanac");
-			SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
-			Date fechanac=sdf.parse(strDate);
-			CtrlPersona cp= new CtrlPersona();
-			CtrlAlumno ca=new CtrlAlumno();
-			cp.existe(nrodoc);		
-			ca.existe(legajo);
-			int idPer=cp.seleccionarUltId()+1; 
-			int idAl=ca.seleccionarUltId()+1;
-			Persona per=new Persona(idPer,tipodocs,nrodoc,nombre,apellido,fechanac,direccion);
-			cp.add(per); 
-			Alumno al=new Alumno(idAl,per,legajo);
-			ca.add(al);
-			PrintWriter out=response.getWriter();
-			out.println("<script>");
-			out.println("alert('Se ha registrado con exito un nuevo alumno');");
-			out.println(" location.href='registrar.jsp';");
-			out.println("</script>");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (AppDataException ape) {
-			// TODO Auto-generated catch block
-			PrintWriter out=response.getWriter();
-			out.println("<script>");
-		     out.println("alert('" + ape.getMessage() + "');");
-			out.println(" location.href='registrar.jsp';");
-			out.println("</script>");	
+		}
+		if(op.equals("volver"))
+		{
+			request.getRequestDispatcher("index.html").forward(request, response);
 		}
 	}
 

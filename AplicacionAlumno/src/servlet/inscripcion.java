@@ -42,37 +42,44 @@ public class inscripcion extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		try 
+		String op = request.getParameter("op");	
+		if(op.equals("inscribir"))
 		{
-			int legajo=Integer.parseInt(request.getParameter("legajo"));
-			int curso=Integer.parseInt(request.getParameter("sel1"));
-			CtrlAlumno ca= new CtrlAlumno();
-			Alumno al=ca.getOneAl(legajo);
-			CtrlInscripcionCarrera ccc=new CtrlInscripcionCarrera();
-			InscripcionCarrera rtaCarrera=ccc.validarCarreraCurso(al.getIdAlumno(),curso);
-			CtrlInscripcionCurso cic=new CtrlInscripcionCurso();
-			boolean rtaInscriptos=cic.verificarInscripcion(al.getIdAlumno(),curso);
-			boolean rtaCupo=cic.validarCupo(curso);
-			CtrlCurso cc=new CtrlCurso();
-			Curso c=cc.getOne(curso);
-			cic.add(al,c);
-			PrintWriter out=response.getWriter();
-			out.println("<script>");
-			out.println("alert('Se ha registrado con exito una nueva inscripcion al curso');");
-			out.println(" location.href='inscripcion.jsp';");
-			out.println("</script>");
+			try 
+			{
+				int legajo=Integer.parseInt(request.getParameter("legajo"));
+				int curso=Integer.parseInt(request.getParameter("sel1"));
+				CtrlAlumno ca= new CtrlAlumno();
+				Alumno al=ca.getOneAl(legajo);
+				CtrlInscripcionCarrera ccc=new CtrlInscripcionCarrera();
+				InscripcionCarrera rtaCarrera=ccc.validarCarreraCurso(al.getIdAlumno(),curso);
+				CtrlInscripcionCurso cic=new CtrlInscripcionCurso();
+				boolean rtaInscriptos=cic.verificarInscripcion(al.getIdAlumno(),curso);
+				boolean rtaCupo=cic.validarCupo(curso);
+				CtrlCurso cc=new CtrlCurso();
+				Curso c=cc.getOne(curso);
+				cic.add(al,c);
+				PrintWriter out=response.getWriter();
+				out.println("<script>");
+				out.println("alert('Se ha registrado con exito una nueva inscripcion al curso');");
+				out.println(" location.href='index.html';");
+				out.println("</script>");
+			}
+			catch (AppDataException | ParseException ape) 
+			{
+				// TODO Auto-generated catch block
+				PrintWriter out=response.getWriter();
+				out.println("<script>");
+			     out.println("alert('" + ape.getMessage() + "');");
+				out.println(" location.href='inscripcion.jsp';");
+				out.println("</script>");	
+				
+			}	
 		}
-		catch (AppDataException | ParseException ape) 
+		if(op.equals("volver"))
 		{
-			// TODO Auto-generated catch block
-			PrintWriter out=response.getWriter();
-			out.println("<script>");
-		     out.println("alert('" + ape.getMessage() + "');");
-			out.println(" location.href='inscripcion.jsp';");
-			out.println("</script>");	
-			
+			request.getRequestDispatcher("index.html").forward(request, response);
 		}
-		
 	}
 
 }

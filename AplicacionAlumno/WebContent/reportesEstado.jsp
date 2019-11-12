@@ -33,7 +33,8 @@
 					   <%} %>
 					</select>
 				</div>
-				<button type="submit" class="col-20 btn btn-success" >Ver reporte</button>
+					<button type="submit" class="col-20 btn btn-success"name="op" value="reporte" >Ver reporte</button>
+				<button type="submit" class="col-20 btn btn-success"name="op" value="volver" >Volver</button>
 			</form> 
     </div>
 

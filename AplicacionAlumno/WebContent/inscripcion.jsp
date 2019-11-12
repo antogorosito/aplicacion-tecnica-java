@@ -23,11 +23,11 @@
 		<form class="form-bus" action="inscripcion" method="post">	
 			<div class="form-group">
 				<label><b>Legajo:</b></label>
-				<input type="number" class="form-control tamaño" id="legajo" name="legajo" onblur="visSel()" required>
+				<input type="number" class="form-control tamaño" id="legajo" name="legajo" onchange="visSel()" required>
 			</div>
 			<div class="form-group oculto " id="la">
 				<label for="sel1"><b>Seleccionar un curso:</b></label>
-			  	<select class="form-control" id="sel1" name="sel1"  onblur="visSel2()">
+			  	<select class="form-control" id="sel1" name="sel1"  onchange="visSel2()">
 			  	 	<option value="0">Elige una opción</option>
 				    <% CtrlCurso cc=new CtrlCurso();
 				      ArrayList<Curso> listado=cc.getAll();
@@ -37,11 +37,9 @@
 				   <%} %>
 				</select>
 			</div>
-			<button type="submit" class="col-20 btn btn-success oculto" id="boton">Inscribir</button>
-			<%String msj=(String)request.getAttribute("error");
-	 			if (msj != null) {%>
- 					<label style="color:red;"><%=msj %></label>
- 				<%}%>
+			<button type="submit" class="col-20 btn btn-success oculto" id="boton" name="op" value="inscribir">Inscribir</button>
+			<button type="submit" class="col-20 btn btn-success oculto" id="volver"name="op" value="volver" formnovalidate>Volver</button>
+			
 		</form>
 		
     </div>

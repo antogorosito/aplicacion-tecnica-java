@@ -55,7 +55,8 @@
 				</div>
 				
 				<div class="top">
-					<button type="submit" class="col-20 btn btn-success" >Registrar</button>
+					<button type="submit" class="col-20 btn btn-success"name="op" value="registrar" >Registrar</button>
+					<button type="submit" class="col-20 btn btn-success"name="op" value="volver" formnovalidate>Volver</button>
 				</div>
 			</form>
 		</div>

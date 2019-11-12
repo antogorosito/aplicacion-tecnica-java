@@ -44,8 +44,9 @@
 				<div class="">
 					<label><b>Tipo documento:</b></label>
 					<select class="form-control" id="tipodoc" name="tipodoc">
-				  	 	<% 	for(TipoDoc tipo:TipoDoc.values())
-				  	 	{  
+				  	 	<% 
+				  	 	for(TipoDoc tipo:TipoDoc.values())
+				  	 	{
 				  	 		if(tipo==al.getPersona().getTipodoc())
 				  	 		{%>
 					   		<option value=<%=tipo.getValor()%> selected><%=tipo%></option>
@@ -72,7 +73,8 @@
 					<input type="number" class="form-control" id="ida" name="ida" value=<%=al.getIdAlumno()%>>
 				</div>
 				<div class="top" >
-					<button type="submit" class="col-20 btn btn-success">Guardar</button>		
+					<button type="submit" class="col-20 btn btn-success" name="op" value="guardar">Guardar</button>	
+					<button type="submit" class="col-20 btn btn-success"name="op" value="volver" formnovalidate>Volver</button>	
 				</div>			
 			</form> 
     </div>

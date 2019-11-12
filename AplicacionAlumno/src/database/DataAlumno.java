@@ -50,7 +50,6 @@ public class DataAlumno
 			{
 				while(rs.next()) 
 				{
-					System.out.println("entre alum con ese leg");
 					AppDataException ape = new AppDataException("Ya existe una persona cargada");
 					throw ape;
 				}
@@ -96,7 +95,8 @@ public class DataAlumno
 					p.setDireccion(rs.getString("direccion"));
 					p.setDocumento(rs.getLong("documento"));
 					p.setFechanac(rs.getDate("fechanac"));
-					TipoDoc tipo;
+					TipoDoc tipo=null;
+					System.out.println("tipo: "+rs.getString("tipodoc"));
 					if(rs.getString("tipodoc")=="DNI")
 					{
 						 tipo=TipoDoc.DNI;
@@ -155,16 +155,18 @@ public class DataAlumno
 					p.setDireccion(rs.getString("direccion"));
 					p.setDocumento(rs.getLong("documento"));
 					p.setFechanac(rs.getDate("fechanac"));
-					TipoDoc tipo;
-					if(rs.getString("tipodoc")=="DNI")
-					{
-						 tipo=TipoDoc.DNI;
-					}
-					else
+					
+					TipoDoc tipo=null;
+					if(rs.getString("tipodoc")=="LC")
 					{
 						 tipo=TipoDoc.LC;
 					}
+					else
+					{
+						 tipo=TipoDoc.DNI;
+					}
 					p.setTipodoc(tipo);
+				
 					al=new Alumno();
 					al.setPersona(p);
 					al.setLegajo(rs.getInt("legajo"));
@@ -200,7 +202,7 @@ public class DataAlumno
 	}
 	public int seleccionarUltId() throws AppDataException
 	{
-		System.out.println("entre");
+	
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		int id=0;
@@ -213,7 +215,7 @@ public class DataAlumno
 				while(rs.next())
 				{
 					id=rs.getInt("identificador");
-					System.out.println("entre2");
+			
 				}
 			}
 		}
@@ -272,14 +274,14 @@ public class DataAlumno
 		ArrayList<Alumno> listado=new ArrayList<Alumno>();
 		try
 		{
-			System.out.println("aqui");
+		
 			stmt=Conexion.getInstancia().getConn().prepareStatement("select alumno.identificador as id,legajo,persona.identificador as idp,nombre,apellido,direccion,documento,tipodoc,fechanac from alumno inner join persona on persona.identificador=alumno.idpersona");
 			rs=stmt.executeQuery();
 			if(rs!=null)
 			{
 				while(rs.next()) 
 				{
-					System.out.println("entre");
+				
 					Persona p=new Persona();
 					p.setIdPersona(rs.getInt("idp"));
 					p.setApellido(rs.getString("apellido"));
