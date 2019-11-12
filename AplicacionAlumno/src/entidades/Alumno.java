@@ -1,7 +1,7 @@
 package entidades;
 
 
-public class Alumno 
+public class Alumno
 {
 	private int idAlumno;
 	private Persona persona;

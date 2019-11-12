@@ -1,7 +1,7 @@
 package database;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import entidades.*;
 import java.sql.*;
 import java.text.DateFormat;
