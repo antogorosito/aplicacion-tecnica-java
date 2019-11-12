@@ -26,8 +26,5 @@ public class CtrlPersona
 	{
 		dp.update(p);
 	}
-	public Persona getDocente(int idcurso)
-	{
-		return dp.getDocente(idcurso);
-	}
+
 }

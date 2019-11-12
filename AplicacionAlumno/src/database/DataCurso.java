@@ -52,8 +52,9 @@ public class DataCurso
 		Curso c=null;
 		try 
 		{
-			stmt=Conexion.getInstancia().getConn().prepareStatement("select curso.identificador as idcurso,curso.nombre as nombrecurso,anio,idcarrera,cupomaximo,descripcion,apellido,persona.nombre as nombre, idpersona\r\n" + 
-					"from curso inner join persona on persona.identificador=curso.idpersona where curso.identificador=?");
+			stmt=Conexion.getInstancia().getConn().prepareStatement("select curso.identificador as idcurso,curso.nombre as nombrecurso,anio,idcarrera,cupomaximo,descripcion,apellido,persona.nombre as nombre, idpersona,iddocente\r\n" + 
+					"from curso inner join docente on docente.identificador=curso.iddocente \r\n" + 
+					"inner join persona on persona.identificador=docente.idpersona where curso.identificador=?");
 			stmt.setInt(1,id);
 			rs=stmt.executeQuery();
 			if(rs!=null)
@@ -73,7 +74,10 @@ public class DataCurso
 					p.setApellido(rs.getString("apellido"));
 					p.setNombre(rs.getString("nombre"));
 					p.setIdPersona(rs.getInt("idpersona"));
-					c.setDocente(p);
+					Docente d=new Docente();
+					d.setPersona(p);
+					d.setIdDocente(rs.getInt("iddocente"));
+					c.setDocente(d);
 
 				}
 			}

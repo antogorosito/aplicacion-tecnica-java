@@ -57,14 +57,15 @@ public class reporteCurso extends HttpServlet {
 				
 			
 			CtrlCurso ctrlc=new CtrlCurso();	
-			CtrlPersona cp= new CtrlPersona();
-			Persona p=cp.getDocente(Integer.parseInt(request.getParameter("sel1")));
+			CtrlDocente cp= new CtrlDocente();
+			
 			CtrlInscripcionCurso cc=new CtrlInscripcionCurso();
 			ArrayList<InscripcionCurso> listInsCurso=cc.getInscriptos(Integer.parseInt(request.getParameter("sel1")));
 			response.setContentType("application/pdf");
 			OutputStream out=response.getOutputStream();
 			try
 	        {
+				Docente p=cp.getDocente(Integer.parseInt(request.getParameter("sel1")));
 				Curso cur=ctrlc.getOne(Integer.parseInt(request.getParameter("sel1")));
 				Document document = new Document(PageSize.A4, 50, 30, 50, 50);
 	            PdfWriter.getInstance(document, out);
@@ -74,7 +75,7 @@ public class reporteCurso extends HttpServlet {
 	            titulo.getFont().setSize(16);
 	            document.add(titulo);
 	            document.add( Chunk.NEWLINE );
-	            Paragraph titulo2=new Paragraph("Docente: "+p.getNombre()+" "+p.getApellido());
+	            Paragraph titulo2=new Paragraph("Docente: "+p.getPersona().getNombre()+" "+p.getPersona().getApellido());
 		        titulo2.getFont().setStyle(Font.BOLD);
 		        titulo2.getFont().setSize(14);
 		        document.add(titulo2);

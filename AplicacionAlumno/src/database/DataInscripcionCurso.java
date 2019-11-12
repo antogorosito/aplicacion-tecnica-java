@@ -150,7 +150,7 @@ public class DataInscripcionCurso
 		ArrayList<InscripcionCurso> cc=new ArrayList<InscripcionCurso>();
 		try
 		{
-			stmt=Conexion.getInstancia().getConn().prepareStatement("select curso.identificador as id,curso.nombre as curso, fechainscripcion,persona.nombre as nombre, apellido, inscripciones_curso.idalumno as alumno, curso.idpersona as docente\r\n" + 
+			stmt=Conexion.getInstancia().getConn().prepareStatement("select curso.identificador as id,curso.nombre as curso, fechainscripcion,persona.nombre as nombre, apellido, inscripciones_curso.idalumno as alumno, curso.iddocente as docente\r\n" + 
 					"from curso\r\n" + 
 					"inner join inscripciones_curso on inscripciones_curso.idcurso=curso.identificador\r\n" + 
 					"inner join alumno on inscripciones_curso.idalumno=alumno.identificador\r\n" + 
@@ -165,9 +165,9 @@ public class DataInscripcionCurso
 					Curso c=new Curso();
 					c.setNombre(rs.getString("curso"));
 					c.setIdCurso(id);
-					Persona pp=new Persona();
-					pp.setIdPersona(rs.getInt("docente"));
-					c.setDocente(pp);
+					Docente d=new Docente();
+					d.setIdDocente(rs.getInt("docente"));
+					c.setDocente(d);					
 					Alumno al=new Alumno();
 					al.setIdAlumno(rs.getInt("alumno"));
 					Persona p=new Persona();

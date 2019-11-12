@@ -2,7 +2,7 @@ package entidades;
 
 import java.util.Date;
 
-public abstract class Persona 
+public class Persona 
 {
 	private int idPersona;
 	private TipoDoc tipodoc;
